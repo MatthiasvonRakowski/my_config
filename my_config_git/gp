@@ -8,7 +8,7 @@ PWD=$(pwd)
 statusOutput=$(git status -s)
 
 # Check if the status output contains "Your branch is up to date"
-if echo "$statusOutput" | grep -q "Your branch is up to date"; then
+if [ "$statusOutput" = "" ]; then
 	echo "nothing to do"
 	exit 0
 fi
