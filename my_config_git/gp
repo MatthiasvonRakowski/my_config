@@ -1,0 +1,65 @@
+#!/bin/bash
+
+BLUE='\033[0;34m'
+PWD=$(pwd)
+
+echo " ██████  ██ ████████      █████  ██████  ██████  "
+echo "██       ██    ██        ██   ██ ██   ██ ██   ██ "
+echo "██   ███ ██    ██        ███████ ██   ██ ██   ██ "
+echo "██    ██ ██    ██        ██   ██ ██   ██ ██   ██ "
+echo " ██████  ██    ██        ██   ██ ██████  ██████  "
+
+echo -e "${BLUE}What do you need to add? Don't put anything for all and to end press 2 times in a row"
+echo -e "\033[0m"
+
+git status
+
+read -r userInput
+
+if [ "$userInput" = "" ]; then
+    git add .
+else
+
+    if [ -f "$PWD/$userInput" ]; then
+        git add "$userInput"
+    else
+        echo "$userInput is not a file or does not exist."
+    fi
+
+    while [ "$userInput" != "" ]; do
+        read -r userInput
+        if [ -f "$userInput" ]; then
+	    git add "$userInput"
+	else
+	    echo "$userInput is not a file or does not exist."
+	fi
+    done
+fi
+
+echo " ██████  ██ ████████      ██████  ██████  ███    ███ ███    ███ ██ ████████ "
+echo "██       ██    ██        ██      ██    ██ ████  ████ ████  ████ ██    ██    "
+echo "██   ███ ██    ██        ██      ██    ██ ██ ████ ██ ██ ████ ██ ██    ██    "
+echo "██    ██ ██    ██        ██      ██    ██ ██  ██  ██ ██  ██  ██ ██    ██    "
+echo " ██████  ██    ██         ██████  ██████  ██      ██ ██      ██ ██    ██    "
+
+echo -e "${BLUE}Choose your tag for the commit! ex: ADD, FIX, DELETE, UPDATE..."
+echo -e "\033[0m"
+
+read -r userTag
+
+uppercaseTag="${userTag^^}"
+
+echo -e "${BLUE}Put the content of your commit!"
+echo -e "\033[0m"
+
+read -r userComment
+
+git commit -m "[$uppercaseTag] $userComment"
+
+echo " ██████  ██ ████████     ██████  ██    ██ ███████ ██   ██ "
+echo "██       ██    ██        ██   ██ ██    ██ ██      ██   ██ "
+echo "██   ███ ██    ██        ██████  ██    ██ ███████ ███████ "
+echo "██    ██ ██    ██        ██      ██    ██      ██ ██   ██ "
+echo " ██████  ██    ██        ██       ██████  ███████ ██   ██ "
+
+git push
