@@ -8,7 +8,6 @@ PWD=$(pwd)
 
 statusOutput=$(git status -s)
 
-# Check if the status output contains "Your branch is up to date"
 if [ "$statusOutput" = "" ]; then
 	echo "nothing to do"
 	exit 0
@@ -22,6 +21,8 @@ echo -e " ██████  ██    ██        ██   ██ ███�
 echo -e "\n\033[0m"
 
 echo -e "${BLUE}What do you need to add? Don't put anything for all and to end press 2 times in a row"
+echo -e "\033[0m"
+echo -e "${BLUE}The status of your actual reposite :"
 echo -e "\033[0m"
 
 git status -s
