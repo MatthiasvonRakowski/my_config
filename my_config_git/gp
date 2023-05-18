@@ -5,6 +5,13 @@ GREEN='\033[0;32m'
 
 PWD=$(pwd)
 
+statusOutput=$(git status -s)
+
+# Check if the status output contains "Your branch is up to date"
+if echo "$statusOutput" | grep -q "Your branch is up to date"; then
+	echo "nothing to do"
+	exit 0
+fi
 echo -e "${GREEN}"
 echo -e " ██████  ██ ████████      █████  ██████  ██████  "
 echo -e "██       ██    ██        ██   ██ ██   ██ ██   ██ "
@@ -16,7 +23,7 @@ echo -e "\n\033[0m"
 echo -e "${BLUE}What do you need to add? Don't put anything for all and to end press 2 times in a row"
 echo -e "\033[0m"
 
-git status
+git status -s
 
 read -r userInput
 
