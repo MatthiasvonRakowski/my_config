@@ -1,0 +1,32 @@
+#!/bin/bash
+
+BLUE='\033[0;34m'
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+
+PWD=$(pwd)
+
+statusOutput=$(git status -s)
+
+echo -e "${BLUE} Do you want to switch to another branch?"
+echo -e "\033[0m"
+echo -e "${BLUE}Choose your branch : (if nothing choose you will arrive to main)"
+echo -e "\033[0m"
+
+read -r userInput
+
+if [ "$userInput" = "" ]; then
+    git switch main
+else
+# Put an error if the branch doesn't exist
+# And ask if the branch wants to be created
+    git switch userInput
+    branch=old
+fi
+
+if [ "$branch" = "old" ]; then
+    git pull
+else
+    git push -u origin "$userInput"
+fi
+
