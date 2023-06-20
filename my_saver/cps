@@ -1,0 +1,36 @@
+#!/bin/bash
+
+WAIT_DIR="$HOME/Epitech/project/save_project"
+SAVE_DIR="$HOME/Epitech/project/save_project/Projet_Tek1"
+
+if [ ! -d "$WAIT_DIR" ]; then
+  echo "ERROR: $WAIT_DIR directory does not exist."
+  exit 84
+fi
+
+if [ ! -d "$SAVE_DIR" ]; then
+  echo "ERROR: $SAVE_DIR directory does not exist."
+  exit 84
+fi
+
+if [ ! -f "$1" ]; then
+  echo "ERROR: File $1 does not exist."
+  exit 84
+fi
+
+cp "$1" "$WAIT_DIR"
+if [ ! $? ]; then
+  echo "ERROR: Failed to copy directory."
+  exit 84
+fi
+
+rm "$WAIT_DIR/$1/.git" >/dev/null 2>&1
+
+mv "$WAIT_DIR/$1" "$SAVE_DIR"
+
+if [ ! $? ]; then
+  echo "ERROR: Failed to move directory."
+  exit 84
+fi
+
+echo "Script executed successfully."
